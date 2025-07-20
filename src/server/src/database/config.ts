@@ -1,7 +1,9 @@
 import { Database } from "bun:sqlite";
 import path from "path";
 
-export const DB_PATH = path.join(process.cwd(), 'data', 'db', 'nexus.db');
+// Use import.meta.dir to get the directory of this file, then navigate to project root
+const projectRoot = path.resolve(import.meta.dir, "../../../");
+export const DB_PATH = path.join(projectRoot, 'data', 'db', 'nexus.db');
 
 let dbInstance: Database | null = null;
 
