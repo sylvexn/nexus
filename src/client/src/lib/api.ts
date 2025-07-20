@@ -9,8 +9,7 @@ import {
   CreateApiKeyResponse,
   UploadResponse
 } from '@/types'
-
-const API_BASE = '/api'
+import { API_BASE_URL } from './config';
 
 class ApiError extends Error {
   constructor(public status: number, message: string) {
@@ -20,7 +19,7 @@ class ApiError extends Error {
 }
 
 async function apiRequest<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
-  const url = `${API_BASE}${endpoint}`
+  const url = `${API_BASE_URL}${endpoint}`
   
   const response = await fetch(url, {
     ...options,
@@ -126,11 +125,11 @@ export const filesApi = {
     apiRequest(`/files/${id}/analytics`),
 
   downloadFile: (id: string): Promise<string> =>
-    fetch(`/api/files/${id}/download`, { credentials: 'include' })
+    fetch(`${API_BASE_URL}/api/files/${id}/download`, { credentials: 'include' })
       .then(response => response.url),
 
   upload: (formData: FormData, apiKey: string): Promise<UploadResponse> =>
-    fetch('/api/upload', {
+    fetch('${API_BASE_URL}/api/upload', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${apiKey}`,
@@ -182,7 +181,7 @@ export const apiKeysApi = {
     }),
 
   deleteApiKey: (id: string): Promise<void> =>
-    apiRequest(`/auth/api-keys/${id}`, { method: 'DELETE' }),
+    apiRequest(`${API_BASE_URL}/auth/api-keys/${id}`, { method: 'DELETE' }),
 }
 
 export const collectionsApi = {
