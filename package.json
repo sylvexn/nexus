@@ -1,0 +1,26 @@
+{
+  "name": "nexusdrop",
+  "private": true,
+  "workspaces": [
+    "src/server",
+    "src/client",
+    "src/shared"
+  ],
+  "scripts": {
+    "dev:backend": "bun run --cwd src/server dev",
+    "dev:client": "bun run --cwd src/client dev",
+    "build": "bun run build:client && bun run build:server",
+    "build:server": "bun run --cwd src/server build",
+    "build:client": "bun run --cwd src/client build",
+    "start": "bun run --cwd src/server start",
+    "db:reset": "bun run src/server/src/scripts/reset-db.ts",
+    "db:setup": "bun run src/server/src/scripts/setup.ts",
+    "cleanup:files": "bun run src/server/src/scripts/cleanup-expired-files.ts"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.1692.0",
+    "bun-types": "latest",
+    "mock-aws-s3": "^4.0.2",
+    "nock": "^14.0.6"
+  }
+}
